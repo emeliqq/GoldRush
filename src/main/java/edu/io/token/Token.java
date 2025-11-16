@@ -1,4 +1,4 @@
-package project.gold_rush.token;
+package edu.io.token;
 
 /**
  * Bazowy token. Testy oczekują publicznego pola label i jednego konstruktora.

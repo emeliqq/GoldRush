@@ -1,4 +1,4 @@
-package project.gold_rush.token;
+package edu.io.token;
 
 /** Centralne miejsce etykiet tokenów */
 public final class Label {

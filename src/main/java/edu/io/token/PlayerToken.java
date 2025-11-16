@@ -1,6 +1,6 @@
-package project.gold_rush.token;
+package edu.io.token;
 
-import project.gold_rush.Board;
+import edu.io.Board;
 
 /**
  * Pionek gracza. Po stworzeniu automatycznie umieszcza się na podanej planszy.

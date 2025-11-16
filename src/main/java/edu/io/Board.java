@@ -1,7 +1,7 @@
-package project.gold_rush;
+package edu.io;
 
-import project.gold_rush.token.EmptyToken;
-import project.gold_rush.token.Token;
+import edu.io.token.EmptyToken;
+import edu.io.token.Token;
 
 /**
  * Plansza: trzyma tokeny w gridzie; nie zwraca nulli dla poprawnych indeksów.

@@ -1,5 +1,5 @@
-package project.gold_rush;
-import project.gold_rush.token.Token;
+package edu.io;
+import edu.io.token.Token;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

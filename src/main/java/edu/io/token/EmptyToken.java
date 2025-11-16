@@ -1,4 +1,4 @@
-package project.gold_rush.token;
+package edu.io.token;
 
 /** Token reprezentujący puste pole na planszy */
 public class EmptyToken extends Token {

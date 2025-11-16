@@ -1,4 +1,4 @@
-package project.gold_rush.token;
+package edu.io.token;
 
 /** Token złota */
 public class GoldToken extends Token {
