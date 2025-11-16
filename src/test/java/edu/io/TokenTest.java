@@ -3,6 +3,7 @@ import edu.io.token.Token;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+
 public class TokenTest {
     @Test
     void token_has_label() {

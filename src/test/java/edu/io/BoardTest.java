@@ -1,8 +1,10 @@
 package edu.io;
+import edu.io.Board;
 import edu.io.token.Token;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 public class BoardTest {
     final String EMPTY_TOKEN_LABEL = "・";
