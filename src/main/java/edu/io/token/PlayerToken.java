@@ -2,16 +2,17 @@ package edu.io.token;
 
 import edu.io.Board;
 
-/**
- * Pionek gracza. Po stworzeniu automatycznie umieszcza się na podanej planszy.
- * Zawiera prostą metodę move (można rozbudować później).
- */
 public class PlayerToken extends Token {
     public enum Move { NONE, UP, DOWN, LEFT, RIGHT }
 
     private final Board board;
     private int col;
     private int row;
+
+    // 🔥 wymagany przez testy konstruktor domyślny
+    public PlayerToken(Board board) {
+        this(board, 0, 0);
+    }
 
     public PlayerToken(Board board, int col, int row) {
         super(Label.PLAYER_TOKEN_LABEL);
@@ -27,10 +28,10 @@ public class PlayerToken extends Token {
         return new Board.Coords(col, row);
     }
 
-    /** Prosty ruch — nadpisuje pole docelowe; rzuca IllegalArgumentException gdy poza planszą */
     public void move(Move dir) {
         int newCol = col;
         int newRow = row;
+
         switch (dir) {
             case UP -> newRow--;
             case DOWN -> newRow++;
@@ -43,10 +44,8 @@ public class PlayerToken extends Token {
             throw new IllegalArgumentException("Cannot move outside the board");
         }
 
-        // zostawiamy puste pole na starym miejscu
         board.setEmptyAt(col, row);
 
-        // aktualizujemy pozycję i umieszczamy siebie
         col = newCol;
         row = newRow;
         board.placeToken(col, row, this);
