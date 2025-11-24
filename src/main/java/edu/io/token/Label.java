@@ -1,6 +1,5 @@
 package edu.io.token;
 
-/** Centralne miejsce etykiet tokenów */
 public final class Label {
     public static final String EMPTY_TOKEN_LABEL  = "・";
     public static final String PLAYER_TOKEN_LABEL = "웃";

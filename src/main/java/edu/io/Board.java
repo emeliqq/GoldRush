@@ -3,10 +3,6 @@ package edu.io;
 import edu.io.token.EmptyToken;
 import edu.io.token.Token;
 
-/**
- * Plansza: trzyma tokeny w gridzie; nie zwraca nulli dla poprawnych indeksów.
- * Zawiera record Coords używany przez PlayerToken.
- */
 public class Board {
 
     public record Coords(int col, int row) {}
@@ -28,7 +24,6 @@ public class Board {
         clean();
     }
 
-    // 🔥 testy w Twoim projekcie używają board.size(), więc metoda musi istnieć
     public int size() {
         return size;
     }
@@ -57,6 +52,17 @@ public class Board {
         return square(col, row);
     }
 
+    public Coords getAvailableSquare() {
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                if (grid[r][c] instanceof EmptyToken) {
+                    return new Coords(c, r);
+                }
+            }
+        }
+        throw new IllegalStateException("Board is full");
+    }
+
     public void clean() {
         for (int r = 0; r < size; r++) {
             for (int c = 0; c < size; c++) {
@@ -77,4 +83,3 @@ public class Board {
         }
     }
 }
-

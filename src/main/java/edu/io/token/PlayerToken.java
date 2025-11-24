@@ -1,23 +1,35 @@
 package edu.io.token;
 
 import edu.io.Board;
+import edu.io.Player;
 
 public class PlayerToken extends Token {
+
     public enum Move { NONE, UP, DOWN, LEFT, RIGHT }
 
     private final Board board;
+    private final Player player;
     private int col;
     private int row;
 
-    // 🔥 wymagany przez testy konstruktor domyślny
-    public PlayerToken(Board board) {
-        this(board, 0, 0);
+    public PlayerToken(Player player, Board board) {
+        super(Label.PLAYER_TOKEN_LABEL);
+        if (player == null) throw new IllegalArgumentException();
+        if (board == null) throw new IllegalArgumentException();
+        this.player = player;
+        this.board = board;
+        Board.Coords c = board.getAvailableSquare();
+        this.col = c.col();
+        this.row = c.row();
+        board.placeToken(col, row, this);
     }
 
-    public PlayerToken(Board board, int col, int row) {
+    public PlayerToken(Player player, Board board, int col, int row) {
         super(Label.PLAYER_TOKEN_LABEL);
-        if (board == null) throw new IllegalArgumentException("board cannot be null");
-        if (!board.inBounds(col, row)) throw new IllegalArgumentException("Initial position outside board");
+        if (player == null) throw new IllegalArgumentException();
+        if (board == null) throw new IllegalArgumentException();
+        if (!board.inBounds(col, row)) throw new IllegalArgumentException();
+        this.player = player;
         this.board = board;
         this.col = col;
         this.row = row;
@@ -41,11 +53,13 @@ public class PlayerToken extends Token {
         }
 
         if (!board.inBounds(newCol, newRow)) {
-            throw new IllegalArgumentException("Cannot move outside the board");
+            throw new IllegalArgumentException();
         }
 
-        board.setEmptyAt(col, row);
+        var token = board.peekToken(newCol, newRow);
+        player.interactWithToken(token);
 
+        board.setEmptyAt(col, row);
         col = newCol;
         row = newRow;
         board.placeToken(col, row, this);
