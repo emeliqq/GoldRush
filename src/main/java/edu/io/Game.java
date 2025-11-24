@@ -1,7 +1,6 @@
 package edu.io;
 
 import edu.io.token.PlayerToken;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,11 @@ public class Game {
         players.add(player);
     }
 
+    public Board board() {
+        return board;
+    }
+
     public void start() {
     }
 }
+

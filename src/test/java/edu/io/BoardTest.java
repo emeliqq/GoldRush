@@ -1,3 +1,5 @@
+package edu.io;
+
 import edu.io.Board;
 import edu.io.Player;
 import edu.io.token.*;

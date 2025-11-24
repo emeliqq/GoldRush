@@ -1,5 +1,7 @@
 package edu.io;
 
+import edu.io.placement.PlacementStrategy;
+import edu.io.placement.SequentialPlacement;
 import edu.io.token.EmptyToken;
 import edu.io.token.Token;
 
@@ -11,17 +13,28 @@ public class Board {
 
     private final Token[][] grid;
     private final EmptyToken emptyToken;
+    private PlacementStrategy placementStrategy;
 
     public Board() {
         this(5);
     }
 
     public Board(int size) {
-        if (size <= 0) throw new IllegalArgumentException("size must be > 0");
+        if (size <= 0) throw new IllegalArgumentException();
         this.size = size;
         this.grid = new Token[size][size];
         this.emptyToken = new EmptyToken();
+        this.placementStrategy = new SequentialPlacement();
         clean();
+    }
+
+    public void setPlacementStrategy(PlacementStrategy strategy) {
+        if (strategy == null) throw new IllegalArgumentException();
+        this.placementStrategy = strategy;
+    }
+
+    public Coords getAvailableSquare() {
+        return placementStrategy.getSquare(this);
     }
 
     public int size() {
@@ -33,7 +46,7 @@ public class Board {
     }
 
     public void setEmptyAt(int col, int row) {
-        if (!inBounds(col, row)) throw new IllegalArgumentException("Out of bounds");
+        if (!inBounds(col, row)) throw new IllegalArgumentException();
         grid[row][col] = emptyToken;
     }
 
@@ -50,17 +63,6 @@ public class Board {
 
     public Token peekToken(int col, int row) {
         return square(col, row);
-    }
-
-    public Coords getAvailableSquare() {
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                if (grid[r][c] instanceof EmptyToken) {
-                    return new Coords(c, r);
-                }
-            }
-        }
-        throw new IllegalStateException("Board is full");
     }
 
     public void clean() {
