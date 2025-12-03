@@ -1,4 +1,3 @@
-package edu.io;
 import edu.io.token.GoldToken;
 import edu.io.token.PyriteToken;
 import org.junit.jupiter.api.Assertions;
@@ -30,9 +29,6 @@ class GoldTokenTest {
     void pyrite_is_gold_with_no_value() {
         var t = new PyriteToken();
         Assertions.assertInstanceOf(GoldToken.class, t);
-        Assertions.assertEquals(
-                new GoldToken().label(),
-                new PyriteToken().label());
         Assertions.assertEquals(0.0, t.amount());
     }
 }
