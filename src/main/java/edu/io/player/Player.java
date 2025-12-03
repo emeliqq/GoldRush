@@ -12,6 +12,19 @@ public class Player {
     private final Shed shed = new Shed();
     private PlayerToken token;
 
+    private void usePickaxeOnGold(PickaxeToken p, GoldToken g) {
+        double amount = g.amount();
+
+        amount *= p.gainFactor();
+        p.useWith(g);
+
+        if (p.isBroken()) {
+            shed.dropTool();
+        }
+
+        gainGold(amount);
+    }
+
     public Gold gold() {
         return gold;
     }
@@ -38,32 +51,33 @@ public class Player {
     }
 
     public void interactWithToken(Token token) {
+        switch (token) {
 
-        if (token instanceof GoldToken g) {
-            double amount = g.amount();
+            case GoldToken g -> {
+                var tool = shed.getTool();
 
-            var tool = shed.getTool();
-            if (tool instanceof PickaxeToken p && p.isWorking()) {
-                amount *= p.gainFactor();
-                p.useWith(g);
-                if (p.isBroken()) shed.dropTool();
+                if (tool instanceof PickaxeToken p && p.isWorking()) {
+                    usePickaxeOnGold(p, g);
+                } else {
+                    gainGold(g.amount());
+                }
             }
 
-            gainGold(amount);
-            return;
-        }
-
-        if (token instanceof PickaxeToken p) {
-            shed.add(p);
-            return;
-        }
-
-        if (token instanceof AnvilToken a) {
-            var tool = shed.getTool();
-            if (tool instanceof Repairable r) {
-                r.repair();
+            case PickaxeToken p -> {
+                shed.add(p);
             }
-            return;
+
+            case AnvilToken a -> {
+                var tool = shed.getTool();
+                if (tool instanceof Repairable r) {
+                    r.repair();
+                }
+            }
+
+            default -> {
+
+            }
         }
     }
+
 }
